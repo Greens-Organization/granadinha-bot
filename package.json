@@ -1,0 +1,38 @@
+{
+  "name": "granadinha-bot",
+  "module": "index.ts",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --watch ./src/bot.ts",
+    "build": "bun ./build.ts",
+    "check:types": "bunx tsc --noEmit",
+    "lint": "biome lint ./src",
+    "lint:apply": "biome check --write ./src/**/*",
+    "test": "bun test --watch",
+    "test:coverage": "bun test --coverage",
+    "start": "bun dist/index.js",
+    "check": "bunx ncu",
+    "upgrade": "bunx ncu -u",
+    "prepare:h": "husky"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.1",
+    "@types/bun": "latest",
+    "drizzle-kit": "0.24.2",
+    "git-commit-msg-linter": "5.0.8",
+    "husky": "9.1.6",
+    "lint-staged": "15.2.10",
+    "npm-check-updates": "17.1.2"
+  },
+  "peerDependencies": {
+    "typescript": "5.0.0"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "0.9.5",
+    "discord.js": "14.16.2",
+    "dotenv": "16.4.5",
+    "drizzle-orm": "0.33.0",
+    "zod": "3.23.8"
+  }
+}
