@@ -4,7 +4,7 @@ import { join } from 'node:path'
 import { existsSync, readFileSync } from 'node:fs'
 import { logger } from '@/utils'
 
-export const EnvSchema = z.object({
+const EnvSchema = z.object({
   NODE_ENV: z
     .enum(['development', 'test', 'production', 'local'])
     .default('development'),
@@ -13,6 +13,9 @@ export const EnvSchema = z.object({
 
   BOT_TOKEN: z.string(),
   APPLICATION_ID: z.string(),
+
+  TURSO_URL: z.string(),
+  TURSO_AUTH_TOKEN: z.string(),
 
   DEBUG: z
     .string()
@@ -40,3 +43,8 @@ function loadEnv(): z.infer<typeof EnvSchema> {
 }
 
 export const env = loadEnv()
+
+export const dbCredentials = {
+  url: env.TURSO_URL,
+  authToken: env.TURSO_AUTH_TOKEN
+}

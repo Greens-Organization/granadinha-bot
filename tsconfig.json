@@ -31,6 +31,6 @@
       "@/tests/*": ["./tests/*"]
     }
   },
-  "include": ["tests", "src"],
+  "include": ["tests", "src", "drizzle.config.ts"],
   "exclude": ["node_modules"]
 }

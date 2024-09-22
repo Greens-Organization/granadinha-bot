@@ -18,11 +18,12 @@
     "rules": {
       "recommended": true,
       "nursery": {
-        "recommended": true
+        "recommended": true,
+        "useConsistentMemberAccessibility": "off"
       },
       "complexity": {
         "noVoid": "warn",
-        "noStaticOnlyClass": "warn"
+        "noStaticOnlyClass": "off"
       },
       "suspicious": {
         "noEmptyInterface": "off",
@@ -40,9 +41,6 @@
         "noNegationElse": "error"
       }
     }
-  },
-  "files": {
-    "ignore": ["src/lib/error-tag-blacklist.ts"]
   },
   "formatter": {
     "enabled": true,
