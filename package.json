@@ -6,12 +6,12 @@
   "scripts": {
     "dev": "bun run --watch ./src/bot.ts",
     "build": "bun ./build.ts",
+    "start": "bun dist/src/bot.js",
     "check:types": "bunx tsc --noEmit",
     "lint": "biome lint ./src",
     "lint:apply": "biome check --write ./src/**/*",
     "test": "bun test --watch",
     "test:coverage": "bun test --coverage",
-    "start": "bun dist/index.js",
     "check": "bunx ncu",
     "upgrade": "bunx ncu -u",
     "db:generate": "drizzle-kit generate",
