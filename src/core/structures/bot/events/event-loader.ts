@@ -34,7 +34,7 @@ export class EventLoader {
 
       if (EventClass && typeof EventClass === 'function') {
         const event = new EventClass(this.client)
-        if (event instanceof EventBase && 'execute' in event) {
+        if (this.isValidEvent(event)) {
           this.events.push(event)
         } else {
           logger.warn(
@@ -49,5 +49,18 @@ export class EventLoader {
     } catch (e) {
       logger.error(`Error ao carregar o evento em ${filePath}: `, e)
     }
+  }
+
+  private isValidEvent(event: any): event is EventBaseProtocol {
+    return (
+      event &&
+      typeof event === 'object' &&
+      'name' in event &&
+      typeof event.name === 'string' &&
+      'execute' in event &&
+      typeof event.execute === 'function' &&
+      'once' in event &&
+      typeof event.once === 'boolean'
+    )
   }
 }
