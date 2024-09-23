@@ -16,6 +16,7 @@ const EnvSchema = z.object({
 
   TURSO_URL: z.string(),
   TURSO_AUTH_TOKEN: z.string(),
+  TEST_GUILD_IDS: z.string().optional(),
 
   DEBUG: z
     .string()
@@ -43,6 +44,10 @@ function loadEnv(): z.infer<typeof EnvSchema> {
 }
 
 export const env = loadEnv()
+
+export const isProduction = env.NODE_ENV === 'production'
+export const isDevelopment = env.NODE_ENV === 'development'
+export const isLocal = env.NODE_ENV === 'local'
 
 export const dbCredentials = {
   url: env.TURSO_URL,
