@@ -1,7 +1,7 @@
+import { constants } from '@/infra/common'
 import type { Client } from 'discord.js'
 import { EventLoader } from './event-loader'
 import type { EventBaseProtocol } from './protocols'
-import { constants } from '@/infra/common'
 
 export class EventHandler {
   private events: EventBaseProtocol[] = []

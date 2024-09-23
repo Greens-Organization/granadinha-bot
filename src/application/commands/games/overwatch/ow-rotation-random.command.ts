@@ -1,5 +1,5 @@
-import { CommandBase } from '@/core/structures/bot/commands/command-base'
 import { makeOWRotationRandom } from '@/application/usecases/games/overwatch/rotations/factories'
+import { CommandBase } from '@/core/structures/bot/commands/command-base'
 import { type CommandInteraction, EmbedBuilder } from 'discord.js'
 
 export default class OWRotationRandomCommand extends CommandBase {

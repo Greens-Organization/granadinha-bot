@@ -1,8 +1,8 @@
+import { existsSync, readFileSync } from 'node:fs'
+import { join } from 'node:path'
+import { logger } from '@/utils'
 import dotenv from 'dotenv'
 import { z } from 'zod'
-import { join } from 'node:path'
-import { existsSync, readFileSync } from 'node:fs'
-import { logger } from '@/utils'
 
 const EnvSchema = z.object({
   NODE_ENV: z

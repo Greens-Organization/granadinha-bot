@@ -1,4 +1,4 @@
-import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core'
+import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 
 export const scrapingData = sqliteTable('scraping_data', {
   id: integer('id').primaryKey({ autoIncrement: true }),

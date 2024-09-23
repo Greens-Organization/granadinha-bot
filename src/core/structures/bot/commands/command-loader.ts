@@ -1,9 +1,9 @@
-import { logger } from '@/utils'
-import type { CommandBaseProtocol } from './protocols'
-import { readdir } from 'node:fs/promises'
-import { join, relative } from 'node:path'
+import { join } from 'node:path'
 import { resolveAliasPath } from '@/core/helpers/resolve-alias-path'
+import { logger } from '@/utils'
+import { Glob } from 'bun'
 import { CommandBase } from './command-base'
+import type { CommandBaseProtocol } from './protocols'
 
 export class CommandLoader {
   private commands: Map<string, CommandBaseProtocol> = new Map()
@@ -13,44 +13,18 @@ export class CommandLoader {
   async loadCommands(): Promise<Map<string, CommandBaseProtocol>> {
     const resolvedDir = resolveAliasPath(this.commandsDir)
 
-    const files = await readdir(resolvedDir, {
-      withFileTypes: true,
-      recursive: true
-    })
+    const glob = new Glob('**/*.{ts,js}')
+    const files = await Array.fromAsync(glob.scan({ cwd: resolvedDir }))
 
-    // for (const file of files) {
-    //   if (
-    //     file.isFile() &&
-    //     (file.name.endsWith('.ts') || file.name.endsWith('.js'))
-    //   ) {
-    //     const relativePath = relative(
-    //       resolvedDir,
-    //       join(file.parentPath, file.name)
-    //     )
-    //     const fullPath = join(resolvedDir, relativePath)
-    //     await this.loadCommandFile(fullPath)
-    //   }
-    // }
-
-    const loadAllFiles = files
-      .filter(
-        (file) =>
-          file.isFile() &&
-          (file.name.endsWith('.ts') || file.name.endsWith('.js'))
-      )
-      .map((file) => {
-        const relativePath = relative(
-          resolvedDir,
-          join(file.parentPath, file.name)
-        )
-        const fullPath = join(resolvedDir, relativePath)
-        return this.loadCommandFile(fullPath)
-      })
-    await Promise.all(loadAllFiles)
+    for (const file of files) {
+      const fullPath = join(resolvedDir, file)
+      await this.loadFiles(fullPath)
+    }
 
     return this.commands
   }
-  private async loadCommandFile(filePath: string): Promise<void> {
+
+  private async loadFiles(filePath: string): Promise<void> {
     try {
       const commandModule = await import(filePath)
       const CommandClass = commandModule.default

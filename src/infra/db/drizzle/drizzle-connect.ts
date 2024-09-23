@@ -1,6 +1,6 @@
 import { env } from '@/infra/env'
-import { drizzle } from 'drizzle-orm/libsql'
 import { createClient } from '@libsql/client'
+import { drizzle } from 'drizzle-orm/libsql'
 
 export function connect() {
   const url = env.TURSO_URL

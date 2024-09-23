@@ -1,9 +1,9 @@
-import { Collection, REST, Routes } from 'discord.js'
 import type { CommandBaseProtocol } from '@/core/structures/bot/commands/protocols'
-import { CommandLoader } from './command-loader'
 import { constants } from '@/infra/common'
 import { env, isDevelopment, isLocal } from '@/infra/env'
 import { logger } from '@/utils'
+import { Collection, REST, Routes } from 'discord.js'
+import { CommandLoader } from './command-loader'
 
 export class CommandHandler {
   private commands: Collection<string, CommandBaseProtocol> = new Collection()

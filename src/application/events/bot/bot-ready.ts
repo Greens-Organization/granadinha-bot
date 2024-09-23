@@ -1,7 +1,7 @@
-import { EventBase } from '@/core/structures/bot/events/event-base'
-import { type Client, Events } from 'discord.js'
-import { logger } from '@/utils'
 import { CommandHandlerManager } from '@/core/structures/bot/commands/command-handler-manager'
+import { EventBase } from '@/core/structures/bot/events/event-base'
+import { logger } from '@/utils'
+import { type Client, Events } from 'discord.js'
 
 export default class ClientReadyEvent extends EventBase<Events.ClientReady> {
   constructor(readonly client: Client) {

@@ -1,10 +1,9 @@
+import { join } from 'node:path'
 import { resolveAliasPath } from '@/core/helpers/resolve-alias-path'
-import type { EventBaseProtocol } from './protocols'
-import { readdir } from 'node:fs/promises'
-import { join, relative } from 'node:path'
 import { logger } from '@/utils'
-import { EventBase } from './event-base'
+import { Glob } from 'bun'
 import type { Client } from 'discord.js'
+import type { EventBaseProtocol } from './protocols'
 
 export class EventLoader {
   private events: EventBaseProtocol[] = []
@@ -16,29 +15,19 @@ export class EventLoader {
 
   async loadEvents(): Promise<EventBaseProtocol[]> {
     const resolvedDir = resolveAliasPath(this.eventsDir)
-    const files = await readdir(resolvedDir, {
-      withFileTypes: true,
-      recursive: true
-    })
+
+    const glob = new Glob('**/*.{ts,js}')
+    const files = await Array.fromAsync(glob.scan({ cwd: resolvedDir }))
 
     for (const file of files) {
-      if (
-        file.isFile() &&
-        (file.name.endsWith('.ts') || file.name.endsWith('.js'))
-      ) {
-        const relativePath = relative(
-          resolvedDir,
-          join(file.parentPath, file.name)
-        )
-        const fullPath = join(resolvedDir, relativePath)
-        await this.loadEventFile(fullPath)
-      }
+      const fullPath = join(resolvedDir, file)
+      await this.loadFiles(fullPath)
     }
 
     return this.events
   }
 
-  private async loadEventFile(filePath: string): Promise<void> {
+  private async loadFiles(filePath: string): Promise<void> {
     try {
       const eventModule = await import(filePath)
       const EventClass = eventModule.default

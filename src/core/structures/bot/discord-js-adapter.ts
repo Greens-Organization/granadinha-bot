@@ -1,6 +1,6 @@
+import { env } from '@/infra/env'
 import type { Client } from 'discord.js'
 import type { EventHandler } from './events/event-handler'
-import { env } from '@/infra/env'
 
 export class DiscordJSAdapter {
   constructor(

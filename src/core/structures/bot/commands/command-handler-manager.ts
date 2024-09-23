@@ -7,6 +7,7 @@ export class CommandHandlerManager {
   private static instance: CommandHandlerManager
   private commandHandler: CommandHandler | null = null
 
+  // Singleton
   static getInstance(): CommandHandlerManager {
     if (!CommandHandlerManager.instance) {
       CommandHandlerManager.instance = new CommandHandlerManager()

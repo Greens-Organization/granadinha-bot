@@ -4,7 +4,7 @@ import { scrapingData } from '@/infra/db/drizzle/migrations/scraping-data'
 import { http } from '@/infra/libs/fetch'
 import { logger } from '@/utils'
 import * as cheerio from 'cheerio'
-import { eq, desc } from 'drizzle-orm'
+import { desc, eq } from 'drizzle-orm'
 
 export type ScraperConstructor = new () => WebScrapingBase<any>
 
