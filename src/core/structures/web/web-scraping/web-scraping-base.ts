@@ -2,6 +2,7 @@ import type { TimestampDTO } from '@/core/dtos/timestamp-dto'
 import { db } from '@/infra/db/drizzle/drizzle-connect'
 import { scrapingData } from '@/infra/db/drizzle/migrations/scraping-data'
 import { http } from '@/infra/libs/fetch'
+import { logger } from '@/utils'
 import * as cheerio from 'cheerio'
 import { eq, desc } from 'drizzle-orm'
 
@@ -74,11 +75,11 @@ export abstract class WebScrapingBase<T> {
     if (this.shouldScrape(lastScrapingRecord)) {
       const data = await this.scrape()
       await this.saveOrUpdateDatabase(data)
-      console.log(
+      logger.debug(
         `Scraping performed and data ${lastScrapingRecord ? 'updated' : 'saved'} for ${this.scrapingType} at ${this.currentTime}`
       )
     } else {
-      console.log(
+      logger.debug(
         `Skipping scraping for ${this.scrapingType}. Last scraped at ${lastScrapingRecord?.timestamp_updated_at}`
       )
     }
@@ -99,7 +100,13 @@ export abstract class WebScrapingBase<T> {
     if (!lastRecord || this.shouldScrape(lastRecord)) {
       const scrapedData = await this.scrape()
 
-      this.saveOrUpdateDatabase(scrapedData).catch(console.error)
+      /* 
+        TODO: Tem um problema esse código. Pois, caso aconteça um problema
+        com o banco de dados, ou coisa parecida, ele pode acabar parando o sistema.
+        O correto seria escapsular isso em um local que seja a prova do erro.
+        E caso ele tenha esse erro, ele deve tentar fazer novamente.
+      */
+      this.saveOrUpdateDatabase(scrapedData).catch(logger.error)
       return scrapedData
     }
     return JSON.parse(lastRecord.data) as T[]
