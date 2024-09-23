@@ -12,7 +12,9 @@ export const logger = {
   },
 
   debug(...args: Parameters<typeof console.log>) {
-    console.log('[DEBUG]', ...args)
+    if (process.env.DEBUG === 'true') {
+      console.log('[DEBUG]', ...args)
+    }
   },
 
   log(...args: Parameters<typeof console.log>) {
