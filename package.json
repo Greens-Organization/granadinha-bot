@@ -15,8 +15,8 @@
     "check": "bunx ncu",
     "upgrade": "bunx ncu -u",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
-    "db:push": "bun run db:generate && bun run db:migrate",
+    "db:migrate": "bunx --bun drizzle-kit migrate",
+    "db:up": "bun run db:generate && bun run db:migrate",
     "db:studio": "drizzle-kit studio",
     "file:test": "bun run ./src/infra/libs/web-scraping/overwatch/scrapping-heroes-list.ts",
     "prepare:h": "husky"
