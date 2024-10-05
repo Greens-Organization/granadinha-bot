@@ -27,23 +27,43 @@ export class CommandLoader {
   private async loadFiles(filePath: string): Promise<void> {
     try {
       const commandModule = await import(filePath)
+
+      if (!commandModule.default) {
+        logger.warn(
+          `O arquivo ${filePath} não tem uma exportação padrão (default).`
+        )
+        return
+      }
+
       const CommandClass = commandModule.default
 
-      if (CommandClass && typeof CommandClass === 'function') {
-        const command = new CommandClass()
-
-        if (command instanceof CommandBase && 'execute' in command) {
-          this.commands.set(command.name, command)
-        } else {
-          logger.warn(
-            `O comando em ${filePath} não é uma instância válida de CommandBase ou não tem um método 'execute'.`
-          )
-        }
-      } else {
+      if (typeof CommandClass !== 'function') {
         logger.warn(
-          `O arquivo ${filePath} não exporta uma classe de comando válida.`
+          `A exportação padrão de ${filePath} não é uma classe ou função.`
         )
+        return
       }
+
+      const command = new CommandClass()
+
+      if (!(command instanceof CommandBase)) {
+        logger.warn(
+          `O comando em ${filePath} não é uma instância de CommandBase.`
+        )
+        return
+      }
+
+      if (typeof command.execute !== 'function') {
+        logger.warn(`O comando em ${filePath} não tem um método 'execute'.`)
+        return
+      }
+
+      if (typeof command.name !== 'string' || command.name.length === 0) {
+        logger.warn(`O comando em ${filePath} não tem um nome válido.`)
+        return
+      }
+
+      this.commands.set(command.name, command)
     } catch (error) {
       logger.error(`Erro ao carregar o comando em ${filePath}:`, error)
     }
