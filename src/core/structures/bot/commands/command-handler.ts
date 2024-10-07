@@ -2,7 +2,8 @@ import type { CommandBaseProtocol } from '@/core/structures/bot/commands/protoco
 import { constants } from '@/infra/common'
 import { env, isDevelopment, isLocal } from '@/infra/env'
 import { logger } from '@/utils'
-import { Collection, REST, Routes } from 'discord.js'
+import { REST, Routes } from 'discord.js'
+import { Collection } from '@/infra/libs/collection'
 import { CommandLoader } from './command-loader'
 
 export class CommandHandler {
@@ -31,10 +32,7 @@ export class CommandHandler {
       // em todos os servidores que o granadinha estiver.
       if (isDevelopment || isLocal) {
         if (env.TEST_GUILD_IDS) {
-          const testGuildIds = env.TEST_GUILD_IDS.split(',').map((id) =>
-            id.trim()
-          )
-          for (const guildId of testGuildIds) {
+          for (const guildId of env.TEST_GUILD_IDS) {
             await rest.put(
               Routes.applicationGuildCommands(env.APPLICATION_ID, guildId),
               { body: commandsData }
