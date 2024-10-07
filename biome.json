@@ -29,13 +29,18 @@
         "noEmptyInterface": "off",
         "noExplicitAny": "off",
         "useAwait": "off",
-        "noImplicitAnyLet": "off"
+        "noImplicitAnyLet": "off",
+        "noUnsafeDeclarationMerging": "info"
       },
       "correctness": {
         "noUnusedImports": "error"
       },
       "style": {
         "noNamespace": "off",
+        "noNonNullAssertion": {
+          "fix": "safe",
+          "level": "info"
+        },
         "noParameterAssign": "off",
         "noInferrableTypes": "warn",
         "noNegationElse": "error"
