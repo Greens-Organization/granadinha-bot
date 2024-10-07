@@ -3,6 +3,7 @@ import { db } from '@/infra/db/drizzle/drizzle-connect'
 import { scrapingData } from '@/infra/db/drizzle/migrations/scraping-data'
 import { http } from '@/infra/libs/fetch'
 import { logger } from '@/utils'
+import { sleep } from 'bun'
 import * as cheerio from 'cheerio'
 import { desc, eq } from 'drizzle-orm'
 
@@ -21,24 +22,45 @@ export abstract class WebScrapingBase<T> {
   protected abstract parse($: cheerio.CheerioAPI): T[]
 
   // TODO: Remover esse db daqui e colocar em um repository para ter mais controle
-  protected async saveOrUpdateDatabase(data: T[]): Promise<void> {
-    const existingRecord = await this.getLastRecord()
-    if (existingRecord) {
-      await db
-        .update(scrapingData)
-        .set({
-          data: JSON.stringify(data),
-          timestamp_updated_at: new Date()
-        })
-        .where(eq(scrapingData.id, existingRecord.id))
-    } else {
-      await db.insert(scrapingData).values({
-        source: this.url,
-        timestamp_created_at: new Date(),
-        timestamp_updated_at: new Date(),
-        type: this.scrapingType,
-        data: JSON.stringify(data)
-      })
+  private async saveOrUpdateDatabaseWithRetry(
+    data: T[],
+    maxRetries = 3,
+    delay = 500
+  ): Promise<void> {
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        const existingRecord = await this.getLastRecord()
+        if (existingRecord) {
+          await db
+            .update(scrapingData)
+            .set({
+              data: JSON.stringify(data),
+              timestamp_updated_at: new Date()
+            })
+            .where(eq(scrapingData.id, existingRecord.id))
+        } else {
+          await db.insert(scrapingData).values({
+            source: this.url,
+            timestamp_created_at: new Date(),
+            timestamp_updated_at: new Date(),
+            type: this.scrapingType,
+            data: JSON.stringify(data)
+          })
+        }
+        return
+      } catch (error) {
+        if (attempt === maxRetries) {
+          logger.error(
+            `Falha ao salvar dados após ${maxRetries} tentativas:`,
+            error
+          )
+          throw error
+        }
+        logger.warn(
+          `Tentativa ${attempt} falhou, tentando novamente em ${delay}ms`
+        )
+        await sleep(delay)
+      }
     }
   }
 
@@ -74,7 +96,7 @@ export abstract class WebScrapingBase<T> {
 
     if (this.shouldScrape(lastScrapingRecord)) {
       const data = await this.scrape()
-      await this.saveOrUpdateDatabase(data)
+      await this.saveOrUpdateDatabaseWithRetry(data)
       logger.debug(
         `Scraping performed and data ${lastScrapingRecord ? 'updated' : 'saved'} for ${this.scrapingType} at ${this.currentTime}`
       )
@@ -106,7 +128,7 @@ export abstract class WebScrapingBase<T> {
         O correto seria escapsular isso em um local que seja a prova do erro.
         E caso ele tenha esse erro, ele deve tentar fazer novamente.
       */
-      this.saveOrUpdateDatabase(scrapedData).catch(logger.error)
+      await this.saveOrUpdateDatabaseWithRetry(scrapedData)
       return scrapedData
     }
     return JSON.parse(lastRecord.data) as T[]
