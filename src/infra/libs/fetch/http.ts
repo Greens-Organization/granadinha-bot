@@ -74,7 +74,6 @@ export class http {
    *   queryParams: { role: 'admin' }
    * });
    *
-   * @example
    * const newUser = await Http.fetch<User>('https://api.example.com', '/users', {
    *   method: 'POST',
    *   headers: { 'Authorization': 'Bearer token123' },

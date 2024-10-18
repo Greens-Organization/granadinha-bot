@@ -28,7 +28,9 @@ const EnvSchema = z
       .transform((data) => data?.split(',').map((i) => i.trim())),
 
     DEBUG: booleanParse,
-    SQLITE_LOCAL: z.string().default('bot.db')
+    SQLITE_LOCAL: z.string().default('bot.db'),
+    REDIS_PORT: z.coerce.number().default(6379),
+    REDIS_HOST: z.string().default('localhost')
   })
   .superRefine((data, ctx) => {
     if (data.NODE_ENV === 'production' || data.NODE_ENV === 'development') {
