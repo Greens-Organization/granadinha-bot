@@ -80,6 +80,6 @@ export const isLocal = env.NODE_ENV === 'local'
 
 export const dbCredentialsLocal = { url: `file:./${env.SQLITE_LOCAL}` }
 export const dbCredentialsRemote = {
-  url: env.TURSO_URL!,
-  authToken: env.TURSO_AUTH_TOKEN!
+  url: env.TURSO_URL as string,
+  authToken: env.TURSO_AUTH_TOKEN as string
 }

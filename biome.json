@@ -30,7 +30,9 @@
         "noExplicitAny": "off",
         "useAwait": "off",
         "noImplicitAnyLet": "off",
-        "noUnsafeDeclarationMerging": "info"
+        "noUnsafeDeclarationMerging": {
+          "level": "off"
+        }
       },
       "correctness": {
         "noUnusedImports": "error"

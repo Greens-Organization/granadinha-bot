@@ -48,7 +48,9 @@ export class Collection<Key, Value> extends Map<Key, Value> {
     if (thisArg !== undefined) fn = fn.bind(thisArg)
     const iter = this.entries()
     return Array.from({ length: this.size }, (): NewValue => {
-      const [key, value] = iter.next().value
+      const next = iter.next()
+      if (next.done) throw new Error('Unexpected end of collection')
+      const [key, value] = next.value
       return fn(value, key, this)
     })
   }
