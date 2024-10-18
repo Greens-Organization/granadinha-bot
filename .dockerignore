@@ -1,0 +1,17 @@
+node_modules
+.git*
+.npmrc
+biome.json
+.lintstagedrc.json
+README.md
+dist
+.code-style
+.husky
+.vscode
+.env.example
+docker-compose.yml
+coverage
+*.md
+*Dockerfile
+docker-compose*
+/docker/local

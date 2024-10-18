@@ -1,0 +1,13 @@
+services:
+  redis:
+    image: redis:7.4.0-alpine3.20
+    container_name: my-redis
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    restart: always
+
+volumes:
+  redis_data:

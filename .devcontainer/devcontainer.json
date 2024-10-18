@@ -1,0 +1,19 @@
+{
+  "name": "Granadinha Bot Local Development",
+
+  "dockerComposeFile": "../docker-compose.local.yml",
+
+  "service": "local",
+  "remoteUser": "ubuntu",
+  "workspaceFolder": "/workspace/granadinha",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "biomejs.biome",
+        "tamasfe.even-better-toml",
+        "oven.bun-vscode",
+        "imgildev.vscode-auto-barrel"
+      ]
+    }
+  }
+}

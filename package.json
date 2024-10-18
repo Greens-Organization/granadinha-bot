@@ -19,7 +19,8 @@
     "db:up": "bun run db:generate && bun run db:migrate",
     "db:studio": "drizzle-kit studio",
     "file:test": "bun run ./src/infra/libs/web-scraping/overwatch/scrapping-heroes-list.ts",
-    "prepare:h": "husky"
+    "prepare:h": "husky",
+    "redis:up": "docker compose -f docker-compose.dev.yml up -d redis"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.1",
@@ -39,6 +40,8 @@
     "discord.js": "14.16.2",
     "dotenv": "16.4.5",
     "drizzle-orm": "0.33.0",
+    "ioredis": "5.4.1",
+    "reflect-metadata": "0.2.2",
     "zod": "3.23.8"
   }
 }
