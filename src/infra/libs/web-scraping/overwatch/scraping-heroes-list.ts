@@ -5,7 +5,7 @@ import type * as cheerio from 'cheerio'
 
 // @RegisterScraper('overwatch') // NO USAGE YET
 export class OverwatchScraping extends WebScrapingBase<OverwatchHeroesDTO> {
-  protected url = constants.OVERWATCH_HEROES_URL
+  protected url = constants.URIS.OVERWATCH_HEROES_URL
   protected scrapingType = 'overwatch_heroes'
 
   protected parse($: cheerio.CheerioAPI): OverwatchHeroesDTO[] {

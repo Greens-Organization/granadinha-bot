@@ -5,13 +5,24 @@ import { logger } from '@/utils'
 import { REST, Routes } from 'discord.js'
 import { Collection } from '@/infra/libs/collection'
 import { CommandLoader } from './command-loader'
+import { CacheFactory, type CacheFactoryType } from '@/infra/libs/cache'
 
 export class CommandHandler {
   private commands: Collection<string, CommandBaseProtocol> = new Collection()
   private commandLoader: CommandLoader
 
-  constructor(private readonly commandsDir = constants.COMMANDS_DIR) {
-    this.commandLoader = new CommandLoader(this.commandsDir)
+  constructor(
+    private readonly commandsDir = constants.COMMANDS_DIR,
+    private readonly cacheFactoryType: CacheFactoryType = 'none'
+    /* 
+      TODO: Remover isso daqui e deixar o comando fluir, ao menos deixar uma
+      instrução para o desenvolvedor que alguns comandos fazem parte de sistema
+      de cache e caso queira ativar isso é preciso subir um cache presente
+      na pasta do cache/adapters
+    */
+  ) {
+    const cache = CacheFactory.createCache(this.cacheFactoryType)
+    this.commandLoader = new CommandLoader(this.commandsDir, cache)
   }
 
   async init(): Promise<void> {
