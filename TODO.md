@@ -6,9 +6,18 @@
 - [x] Criar Command Handler [#fbfd670](https://github.com/Greens-Organization/granadinha-bot/commit/fbfd670184235e8308fb1198a576edfad7351575#diff-086bc6e703b202daecb18a7f0bf74e4ab0b0d5d5758f697a6de2c677a2139ecb)
 - [x] Criar build para ambiente de produção/compilação [#50d9bea](https://github.com/Greens-Organization/granadinha-bot/commit/50d9bea57d1f40c64ac3e98352da6689c4fe1919)
 - [ ] Rodar dentro de uma maquina Docker
-  - [ ] Criar dockerfile para dev
+  - [x] Criar dockerfile para dev
   - [ ] Criar dockerfile para prod
-  - [ ] Criar dockerfile e compose para desenvolvimento local
-- [ ] Criar ambiente de testes
+  - [x] Criar dockerfile e compose para desenvolvimento local
+- [ ] Criar coverage de testes ([bun test](https://bun.sh/docs/cli/test))
   - [ ] Criar testes unitários
   - [ ] Criar testes integrados
+- [ ] Escrever a própria classe Collection
+  - [x] Estudar sobre como funciona o [Map](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Map)
+    - Notações no [README.md](src/infra/libs/collection/README.md)
+- [ ] Escrever um Error Handler
+- [ ] Ter um tracing e log de erro decente
+  - [ ] implementar esse sistema de monitoramente deste [vídeo](https://youtu.be/1l6dgHqOiHU)
+- [ ] Criar um db sqlite local para testes, sem a necessidade de compartilhar o que tem remoto
+- [ ] Criar sistema de cache
+  - [x] Adicionar no [CommandHandler](./src/core/structures/bot/commands/command-handler.ts)
