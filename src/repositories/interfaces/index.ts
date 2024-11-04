@@ -1,1 +1,2 @@
-export * from './scraping-data-repository'
+export * from './rpg-campaigns-repository'
+export * from './rpg-campaign-members-repository'

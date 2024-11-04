@@ -12,7 +12,8 @@
         "biomejs.biome",
         "tamasfe.even-better-toml",
         "oven.bun-vscode",
-        "imgildev.vscode-auto-barrel"
+        "imgildev.vscode-auto-barrel",
+        "redhat.vscode-yaml"
       ]
     }
   }

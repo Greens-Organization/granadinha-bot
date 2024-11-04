@@ -1,3 +1,4 @@
+
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 
 export const scrapingData = sqliteTable('scraping_data', {
@@ -12,3 +13,5 @@ export const scrapingData = sqliteTable('scraping_data', {
     mode: 'timestamp'
   }).notNull()
 })
+
+export type ScrapingData = typeof scrapingData

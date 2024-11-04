@@ -18,6 +18,24 @@
 - [ ] Escrever um Error Handler
 - [ ] Ter um tracing e log de erro decente
   - [ ] implementar esse sistema de monitoramente deste [vídeo](https://youtu.be/1l6dgHqOiHU)
-- [ ] Criar um db sqlite local para testes, sem a necessidade de compartilhar o que tem remoto
+- [x] Criar um db sqlite local para testes, sem a necessidade de compartilhar o que tem remoto [#a67b2cf](https://github.com/Greens-Organization/granadinha-bot/commit/a67b2cf8dd15451b669774a41208446e6493e72b)
 - [ ] Criar sistema de cache
+  - [ ] ...
   - [x] Adicionar no [CommandHandler](./src/core/structures/bot/commands/command-handler.ts)
+- [ ] Comandos para o Bot
+  - [ ] Criar torneio de Xadrez com o [Lichess](https://lichess.org/developers)
+    - [ ] ...
+  - [ ] RPG
+    - [ ] Criar instâncias de RPG
+      - [ ] Salvar Nome dos jogadores, também do Mestre, e seus personagens.
+      - [ ] Armazenar qual é o local que está acontecendo a sessão Roll20, Foundry, etc.
+      - [ ] Armazenar o nome da campanha
+      - [ ] Configurar qual é a Sala de RPG que está acontecendo a sessão
+      - [ ] Qual é o horario, em média, padrão que vai acontecer o jogo
+        - [ ] Ter integração com o sistema de [Poll](https://support.discord.com/hc/en-us/articles/22163184112407-Polls-FAQ) (enquete)
+        - [ ] Enviar notificação para os membros que estão naquela sessão marcada pelo Mestre.
+- [ ] Criar termos para o Bot
+  - [ ] EULA
+  - [ ] LGPD
+  - [ ] Termos de Serviços
+  - [ ] Termos de Uso

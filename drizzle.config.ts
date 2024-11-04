@@ -12,8 +12,7 @@ if (isProduction || isDevelopment) {
   config = {
     schema: './src/infra/db/drizzle/migrations/**/*',
     out: './migrations',
-    dialect: 'sqlite',
-    driver: 'turso',
+    dialect: 'turso',
     dbCredentials: dbCredentialsRemote
   }
 }
