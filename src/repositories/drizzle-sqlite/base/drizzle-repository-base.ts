@@ -1,8 +1,8 @@
+import type { InferInsertModel, InferSelectModel, Table } from 'drizzle-orm'
 import { eq } from 'drizzle-orm'
-import type { Table, InferInsertModel, InferSelectModel } from 'drizzle-orm'
-import type { IRepositoryBase } from '@/repositories/interfaces/base/interface-repository-base'
-import { db } from '@/infra/db/drizzle/drizzle-connect'
 import type { SQLiteTableWithColumns } from 'drizzle-orm/sqlite-core'
+import { db } from '@/infra/db/drizzle/drizzle-connect'
+import type { IRepositoryBase } from '@/repositories/interfaces/base/interface-repository-base'
 
 export abstract class DrizzleBaseRepository<T extends Table>
   implements IRepositoryBase<T>

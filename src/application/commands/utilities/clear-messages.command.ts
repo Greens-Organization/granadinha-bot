@@ -1,4 +1,3 @@
-import { CommandBase } from '@/core/structures/bot/commands/command-base'
 import { sleep } from 'bun'
 import {
   AuditLogEvent,
@@ -7,6 +6,7 @@ import {
   PermissionFlagsBits,
   TextChannel
 } from 'discord.js'
+import { CommandBase } from '@/core/structures/bot/commands/command-base'
 
 export default class ClearMessages extends CommandBase {
   constructor() {

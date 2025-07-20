@@ -1,5 +1,5 @@
-import { env } from '@/infra/env'
 import type { Client } from 'discord.js'
+import { env } from '@/infra/env'
 import type { EventHandler } from './events/event-handler'
 
 export class DiscordJSAdapter {
@@ -9,8 +9,7 @@ export class DiscordJSAdapter {
   ) {}
 
   async init(): Promise<void> {
-    await this.login()
-    await this.eventHandler.init()
+    await Promise.all([this.eventHandler.init(), this.login()])
   }
 
   private async login(): Promise<void> {

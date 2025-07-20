@@ -1,5 +1,5 @@
-import { CommandBase } from '@/core/structures/bot/commands/command-base'
 import type { CommandInteraction } from 'discord.js'
+import { CommandBase } from '@/core/structures/bot/commands/command-base'
 
 export default class Ping extends CommandBase {
   constructor() {

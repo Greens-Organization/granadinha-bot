@@ -1,7 +1,7 @@
+import type * as cheerio from 'cheerio'
 import type { OverwatchHeroesDTO } from '@/core/dtos/overwatch-heroes-dto'
 import { WebScrapingBase } from '@/core/structures/web/web-scraping/web-scraping-base'
 import { constants } from '@/infra/common'
-import type * as cheerio from 'cheerio'
 
 // @RegisterScraper('overwatch') // NO USAGE YET
 export class OverwatchScraping extends WebScrapingBase<OverwatchHeroesDTO> {

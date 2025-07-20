@@ -1,7 +1,7 @@
+import { Events, type Interaction } from 'discord.js'
 import { CommandHandlerManager } from '@/core/structures/bot/commands/command-handler-manager'
 import { EventBase } from '@/core/structures/bot/events/event-base'
 import { logger } from '@/utils'
-import { Events, type Interaction } from 'discord.js'
 
 export default class InteractionCreate extends EventBase<Events.InteractionCreate> {
   constructor() {

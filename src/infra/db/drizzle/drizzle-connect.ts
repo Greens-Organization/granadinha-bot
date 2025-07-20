@@ -1,8 +1,8 @@
-import { dbCredentialsRemote, env, isLocal } from '@/infra/env'
-import { createClient } from '@libsql/client'
-import { drizzle as tursoSqlite } from 'drizzle-orm/libsql'
 import { Database } from 'bun:sqlite'
+import { createClient } from '@libsql/client'
 import { drizzle as bunSqlite } from 'drizzle-orm/bun-sqlite'
+import { drizzle as tursoSqlite } from 'drizzle-orm/libsql'
+import { dbCredentialsRemote, env, isLocal } from '@/infra/env'
 
 export function connect() {
   if (isLocal) {

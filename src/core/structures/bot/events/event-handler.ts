@@ -1,5 +1,5 @@
-import { constants } from '@/infra/common'
 import type { Client } from 'discord.js'
+import { constants } from '@/infra/common'
 import { EventLoader } from './event-loader'
 import type { EventBaseProtocol } from './protocols'
 

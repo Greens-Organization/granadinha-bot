@@ -161,7 +161,7 @@
 //           role.editable &&
 //           !role.managed &&
 //           role.name !== '@everyone' &&
-//           // @ts-ignore
+//           // @ts-expect-error
 //           guild.members.me?.roles.highest.comparePositionTo(role) > 0
 //       ) || null
 //     )

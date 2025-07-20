@@ -1,8 +1,8 @@
 import { join } from 'node:path'
-import { resolveAliasPath } from '@/core/helpers/resolve-alias-path'
-import { logger } from '@/utils'
 import { Glob } from 'bun'
 import type { Client } from 'discord.js'
+import { resolveAliasPath } from '@/core/helpers/resolve-alias-path'
+import { logger } from '@/utils'
 import type { EventBaseProtocol } from './protocols'
 
 export class EventLoader {

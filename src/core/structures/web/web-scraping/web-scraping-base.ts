@@ -1,11 +1,11 @@
+import { sleep } from 'bun'
+import * as cheerio from 'cheerio'
+import { desc, eq } from 'drizzle-orm'
 import type { TimestampDTO } from '@/core/dtos/timestamp-dto'
 import { db } from '@/infra/db/drizzle/drizzle-connect'
 import { scrapingData } from '@/infra/db/drizzle/migrations/scraping-data'
 import { http } from '@/infra/libs/fetch'
 import { logger } from '@/utils'
-import { sleep } from 'bun'
-import * as cheerio from 'cheerio'
-import { desc, eq } from 'drizzle-orm'
 
 export type ScraperConstructor = new () => WebScrapingBase<any>
 

@@ -1,11 +1,11 @@
 import 'reflect-metadata'
 import { join } from 'node:path'
-import { resolveAliasPath } from '@/core/helpers/resolve-alias-path'
-import { logger } from '@/utils'
 import { Glob } from 'bun'
+import { resolveAliasPath } from '@/core/helpers/resolve-alias-path'
+import type { CacheInterface } from '@/infra/libs/cache/cache-interface'
+import { logger } from '@/utils'
 import { CommandBase } from './command-base'
 import type { CommandBaseProtocol } from './protocols'
-import type { CacheInterface } from '@/infra/libs/cache/cache-interface'
 
 export class CommandLoader {
   private commands: Map<string, CommandBaseProtocol> = new Map()

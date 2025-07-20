@@ -1,6 +1,6 @@
 import {
-  rpgCampaigns,
-  type RpgCampaign
+  type RpgCampaign,
+  rpgCampaigns
 } from '@/infra/db/drizzle/migrations/rpg-campaigns'
 import { DrizzleBaseRepository } from './base/drizzle-repository-base'
 

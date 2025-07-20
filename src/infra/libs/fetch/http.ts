@@ -43,7 +43,7 @@ export class http {
     const searchParams = new URLSearchParams()
 
     for (const key in queryParams) {
-      if (Object.prototype.hasOwnProperty.call(queryParams, key)) {
+      if (Object.hasOwn(queryParams, key)) {
         searchParams.append(key, queryParams[key].toString())
       }
     }

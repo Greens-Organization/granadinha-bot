@@ -1,11 +1,11 @@
+import { REST, Routes } from 'discord.js'
 import type { CommandBaseProtocol } from '@/core/structures/bot/commands/protocols'
 import { constants } from '@/infra/common'
 import { env, isDevelopment, isLocal } from '@/infra/env'
-import { logger } from '@/utils'
-import { REST, Routes } from 'discord.js'
-import { Collection } from '@/infra/libs/collection'
-import { CommandLoader } from './command-loader'
 import { CacheFactory, type CacheFactoryType } from '@/infra/libs/cache'
+import { Collection } from '@/infra/libs/collection'
+import { logger } from '@/utils'
+import { CommandLoader } from './command-loader'
 
 export class CommandHandler {
   private commands: Collection<string, CommandBaseProtocol> = new Collection()

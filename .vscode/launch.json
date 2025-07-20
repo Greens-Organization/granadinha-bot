@@ -5,8 +5,9 @@
       "type": "bun",
       "request": "launch",
       "name": "Debug Server",
-      "program": "${workspaceFolder}/src/main/server.ts",
-      "internalConsoleOptions": "neverOpen"
+      "program": "${workspaceFolder}/src/bot.ts",
+      "internalConsoleOptions": "neverOpen",
+      "runtimeArgs": ["--inspect"]
     }
   ]
 }

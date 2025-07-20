@@ -1,13 +1,13 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { logger } from '@/utils'
 import dotenv from 'dotenv'
 import { z } from 'zod'
+import { logger } from '@/utils'
 
-const booleanParse = z
-  .string()
-  .optional()
-  .transform((str) => str === 'true')
+const booleanSchema = z.stringbool({
+  truthy: ['yes', 'true'],
+  falsy: ['no', 'false']
+})
 
 const EnvSchema = z
   .object({
@@ -17,7 +17,7 @@ const EnvSchema = z
     HOST: z.string().default('0.0.0.0'),
     PORT: z.coerce.number().default(3000),
 
-    BOT_TOKEN: z.string(),
+    BOT_TOKEN: z.string().min(1),
     APPLICATION_ID: z.string(),
 
     TURSO_URL: z.string().optional(),
@@ -27,24 +27,27 @@ const EnvSchema = z
       .optional()
       .transform((data) => data?.split(',').map((i) => i.trim())),
 
-    DEBUG: booleanParse,
+    DEBUG: booleanSchema.default(false),
     SQLITE_LOCAL: z.string().default('bot.db'),
     REDIS_PORT: z.coerce.number().default(6379),
     REDIS_HOST: z.string().default('localhost')
   })
-  .superRefine((data, ctx) => {
+  .check((ctx) => {
+    const data = ctx.value
     if (data.NODE_ENV === 'production' || data.NODE_ENV === 'development') {
       if (!data.TURSO_AUTH_TOKEN) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
+        ctx.issues.push({
+          code: 'custom',
+          input: data.TURSO_AUTH_TOKEN,
           message:
             'TURSO_AUTH_TOKEN is required when NODE_ENV is development or production',
           path: ['TURSO_AUTH_TOKEN']
         })
       }
       if (!data.TURSO_URL) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
+        ctx.issues.push({
+          code: 'custom',
+          input: data.TURSO_URL,
           message:
             'TURSO_URL is required when NODE_ENV is development or production',
           path: ['TURSO_URL']
@@ -65,7 +68,7 @@ function loadEnv(): z.infer<typeof EnvSchema> {
   const result = EnvSchema.safeParse(envVars)
 
   if (!result.success) {
-    logger.error(result.error.format())
+    logger.error(z.treeifyError(result.error))
     throw new Error('❌ Invalid environment variables.')
   }
 

@@ -1,6 +1,6 @@
 import { Client, GatewayIntentBits, Partials } from 'discord.js'
-import { EventHandler } from './core/structures/bot/events/event-handler'
 import { DiscordJSAdapter } from './core/structures/bot/discord-js-adapter'
+import { EventHandler } from './core/structures/bot/events/event-handler'
 
 function bot() {
   const client = new Client({

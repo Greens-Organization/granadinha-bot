@@ -1,4 +1,3 @@
-
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 
 export const scrapingData = sqliteTable('scraping_data', {
